@@ -1,5 +1,5 @@
 # google-dino
-A re-creation of Google's dino jumpy desert game. This time... it's Jumpy Bean Lady!!
+A re-creation of Google's dino-jumping-in-the-desert game. This time... it's Jumpy Bean Lady!!
 Uses the p5.js library.
 
 ### What it looks like
