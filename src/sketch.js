@@ -66,9 +66,9 @@ function draw() {
     clear();
     background(COLOR_BACKGROUND);
     postScore();
-    checkForCollisions();
     theRoad.render();
     theDino.render();
+    checkForCollisions();
     
     if (GAME_STARTED === 1) {
         theDino.move();
@@ -82,7 +82,6 @@ function initialize() {
     if (GAME_STARTED === 0) {
         theDino = new GameBlock();
         theRoad = new Road();
-        // obstacles.push(new Obstacle(20, 35));
     }
 }
 
@@ -146,6 +145,10 @@ function checkForCollisions() {
             frameRate(0);
             textSize(48);
             text(`BEAN SOUP'D.`, 40, 70);
+
+            textSize(16);
+            text(`Click to reset.`, 40, 120);
+            GAME_STARTED = 2; // this means game is over
         }
     })
 }
@@ -159,6 +162,22 @@ const objectsCollided = (objA, objB) => {
     }
     return false;
 };
+
+function keyPressed() {
+    if (keyCode === UP_ARROW) {
+        GAME_STARTED = 1;
+        theDino.jump();
+    }
+    return false;
+}
+
+function mouseClicked() {
+    console.log("I got clicked!!");
+    if(GAME_STARTED === 2) {
+        reset();
+    }
+}
+
 
 class GameBlock {
     constructor() {
@@ -235,14 +254,6 @@ class Obstacle {
 
 }
 
-function keyPressed() {
-    if (keyCode === UP_ARROW) {
-        GAME_STARTED = 1;
-        theDino.jump();
-    }
-    return false;
-}
-
 class Road {
 
     constructor() {
@@ -304,4 +315,14 @@ class Road {
 
         strokeWeight(0); // turn this back off.   
     }
+}
+
+function reset() {
+    GAME_STARTED = 0;
+    obstacles = [];
+    Obstacle_Velocity = -6;
+    FramesToNextObstacle = 50;
+    Player_Score = 0;
+    frameRate(60);
+    initialize();
 }
